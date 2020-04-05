@@ -26,7 +26,7 @@ class ComplexPoint():
 
     def set_constant(self, position: Vector2, scale: int):
         self.reset()
-        scaled_position = (position - self.center) / scale
+        scaled_position = self.from_absolute_to_relative(position, scale)
         self.constant = complex(
             scaled_position.x,
             scaled_position.y
@@ -34,11 +34,14 @@ class ComplexPoint():
 
     def set_point(self, position: Vector2, scale: int):
         self.reset()
-        scaled_position = (position - self.center) / scale
+        scaled_position = self.from_absolute_to_relative(position, scale)
         self.point = complex(
             scaled_position.x,
             scaled_position.y
         )
+
+    def from_absolute_to_relative(self, position: complex, scale: int):
+        return (position - self.center) / scale
 
     def reset(self):
         self.point = complex(0.0, 0.0)
